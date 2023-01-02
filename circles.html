@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circles</title>
+    <link rel="stylesheet" href="global.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.0/d3.min.js" integrity="sha512-jXsLjbg/Pr8F5U2evjFaEci7mImlUix865lbvnNmp5TzS86+VTTFVDz7FFTS6VHdhSn7UJ4tjZdvpp0GgT0fZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        .circle {
+            transition: all .5s;
+        }
+    </style>
+</head>
+<body>
+
+    <svg id="viz" class="viz"></svg>
+
+    <script>
+        let svg_element = document.querySelector('.viz');
+        let width = svg_element.offsetWidth;
+        let height = svg_element.offsetHeight;
+        console.log(width, height)
+
+        const color = () => {
+            red = Math.floor(Math.random() * 255);
+            green = Math.floor(Math.random() * 255);
+            blue = Math.floor(Math.random() * 255);
+            return "rgba("+red+", "+green+", "+blue+", 1)";
+        }
+
+        svg = d3.select('#viz');
+        width = svg.node().getBoundingClientRect().width;
+        height = svg.node().getBoundingClientRect().height;
+        console.log(width, height)
+        console.log(height/width)
+
+
+        l_width = parseInt(width/10)
+        l_height = parseInt(l_width * (height/width))
+        console.log(l_width, l_height)
+        svg.attr("viewbox", "0 0 "+(l_width)+" "+(l_height));
+
+        let radius = l_width/10
+
+        for(let i=radius; i<l_width; i+=radius) {
+            for(let j=radius; j<l_height; j+=radius) {
+                svg.append("circle")
+                .attr('class', "circle")
+                .attr('cx', 10*i)
+                .attr('cy', 10*j)
+                .attr('r', radius*2)
+                .attr('stroke', "#2980B9")
+                .attr('fill', 'none')
+                .attr('stroke-width', 1)
+            }
+        }
+
+        let r = radius;
+        let increase_val = .5
+        let increase = true;
+        let interval = setInterval(increaseRadius, 100);
+        
+        function increaseRadius() {
+            r += increase_val;
+            d3.selectAll("circle").attr('r', r);
+            if(r > l_width*l_height/radius) { 
+                clearInterval(interval);
+                //interval = setInterval(decreaseRadius, 100);
+            }
+        }
+        function decreaseRadius() {
+            r -= increase_val;
+            d3.selectAll("circle").attr('r', r);
+            if(r < radius) { 
+                clearInterval(interval);
+                interval = setInterval(increaseRadius, 100);
+            }
+        }/*
+        */
+    </script>
+</body>
+</html>
