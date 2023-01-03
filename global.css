@@ -21,3 +21,12 @@ h1 {
     margin: auto;
     display: block;
 }
+#home_link {
+    position: fixed;
+    z-index: 9;
+    bottom: 10px;
+    right: 10px;
+    font-size: 40px;
+    text-decoration: none;
+    font-weight: bold;
+}
