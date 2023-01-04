@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.0/d3.min.js" integrity="sha512-jXsLjbg/Pr8F5U2evjFaEci7mImlUix865lbvnNmp5TzS86+VTTFVDz7FFTS6VHdhSn7UJ4tjZdvpp0GgT0fZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         .circle {
-            transition: all .5s;
+            transition: all 10s;
         }
     </style>
 </head>
@@ -58,16 +58,16 @@
         }
 
         let r = radius;
-        let increase_val = .5
+        let increase_val = 10
         let increase = true;
-        let interval = setInterval(increaseRadius, 100);
+        let interval = setInterval(increaseRadius, 950);
         
         function increaseRadius() {
             r += increase_val;
             d3.selectAll("circle").attr('r', r);
             if(r > l_width*l_height/radius) { 
                 clearInterval(interval);
-                //interval = setInterval(decreaseRadius, 100);
+                //interval = setInterval(decreaseRadius, 950);
             }
         }
         function decreaseRadius() {
@@ -75,7 +75,7 @@
             d3.selectAll("circle").attr('r', r);
             if(r < radius) { 
                 clearInterval(interval);
-                interval = setInterval(increaseRadius, 100);
+                interval = setInterval(increaseRadius, 950);
             }
         }/*
         */
