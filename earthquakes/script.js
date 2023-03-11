@@ -75,7 +75,7 @@ d3.json('https://cdn.jsdelivr.net/npm/morocco-map/data/provinces.json')
             .on("mouseleave", mouseleave)
 
         // Loading earthquakes:
-        d3.csv("IEB_export.csv")
+        d3.csv("./IEB_export.csv")
             .then(eartquakes => {
                 // Tooltip
                 // create a tooltip
