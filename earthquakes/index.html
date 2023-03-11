@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://unpkg.com/d3@5.6.0/dist/d3.min.js"></script>
+    <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .region {
+            fill: #7F8C8D;
+            opacity: 0.88;
+        }
+        .region:hover {
+            opacity: 1;
+        }
+        .earthquake:hover{
+            stroke: black;
+            fill: red;
+            stroke-width: 2px;
+        }
+        #viz {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: block;
+            margin: auto;
+            background-color: rgba(52, 152, 219, .3);
+            text-align: center;
+        }
+        .tooltip {
+            display: block;
+            width: fit-content;
+            text-align: left;
+            background-color: white;
+            border: solid;
+            border-width: 2px;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+        }
+        .filter {
+            position: absolute;
+            z-index: 2;
+        }
+    </style>
+
+    <title>Moroccan regions map example</title>
+</head>
+
+<body>
+    <div class="filter">
+        <input type="checkbox" class="checkbox" value="morocco" checked><label>Morocco</label>
+        <input type="checkbox" class="checkbox" value="strait_of_gibraltar"><label>Strait of Gibraltar</label>
+        <input type="checkbox" class="checkbox" value="spain"><label>Spain</label>
+        <input type="checkbox" class="checkbox" value="unk"><label>Unkown</label>
+        <input type="checkbox" class="checkbox" value="portugal"><label>Portugal</label>
+        <input type="checkbox" class="checkbox" value="algeria"><label>Algeria</label>
+        <input type="checkbox" class="checkbox" value="mauritania"><label>Mauritania</label>
+    </div>
+    <div id="viz">
+        <svg></svg>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
