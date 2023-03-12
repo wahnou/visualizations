@@ -8,8 +8,7 @@ const svg = d3.select('svg').attr("width", width).attr("height", height);
 var Tooltip = d3.select("#viz")
     .append("div")
     .attr("class", "tooltip")
-    .style("opacity", 1)
-
+    
 var mouseover = function (d) {
     Tooltip.style("opacity", 1)
 }
@@ -77,11 +76,8 @@ d3.json('https://cdn.jsdelivr.net/npm/morocco-map/data/provinces.json')
         // Loading earthquakes:
         d3.csv("https://raw.githubusercontent.com/wahnou/visualizations/master/earthquakes/IEB_export.csv")
             .then(eartquakes => {
-                // Tooltip
-                // create a tooltip
                 max_mag = d3.max(eartquakes, d => d.Mag)
                 max_depth = d3.max(eartquakes, d => d.Depth)
-                console.log(max_depth)
                 // Plot earthquakes
                 svg
                     .selectAll("myCircles")
