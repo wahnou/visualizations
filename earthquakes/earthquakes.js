@@ -53,10 +53,12 @@ function stroke(region) {
         return "#FF0000"
     return "#ffffff"
 }
+d3.select("#loading_screen").text('Loading map');
 
 
 d3.json('https://cdn.jsdelivr.net/npm/morocco-map/data/provinces.json')
     .then(data => {
+        d3.select("#loading_screen").text('Map loaded');
         const provinces = topojson.feature(data, data.objects.provinces);
 
         const projection = d3.geoMercator()
@@ -74,8 +76,10 @@ d3.json('https://cdn.jsdelivr.net/npm/morocco-map/data/provinces.json')
             .on("mouseleave", mouseleave)
 
         // Loading earthquakes:
+        d3.select("#loading_screen").text('Loading data');
         d3.csv("https://raw.githubusercontent.com/wahnou/visualizations/master/earthquakes/IEB_export.csv")
             .then(eartquakes => {
+                d3.select("#loading_screen").text('Data loaded');
                 max_mag = d3.max(eartquakes, d => d.Mag)
                 max_depth = d3.max(eartquakes, d => d.Depth)
                 // Plot earthquakes
@@ -120,5 +124,7 @@ d3.json('https://cdn.jsdelivr.net/npm/morocco-map/data/provinces.json')
                 d3.selectAll(".checkbox").on("change", update);
 
                 update()
+                d3.select("#loading_screen").style('display', 'none');
+
             })
     });

@@ -27,6 +27,7 @@
             fill: red;
             stroke-width: 2px;
         }
+        #loading_screen,
         #viz {
             position: absolute;
             left: 0;
@@ -54,12 +55,21 @@
             position: absolute;
             z-index: 2;
         }
+        #loading_screen {
+            z-index: 3;
+            background-color: rgba(0,0,0,.9);
+            padding-top: 40%;
+            font-weight: bold;
+            font-size: 30px;
+            color: white;
+        }
     </style>
 
     <title>Moroccan regions map example</title>
 </head>
 
 <body>
+    <div id="loading_screen">Earthquakes...</div>
     <div class="filter">
         <input type="checkbox" class="checkbox" value="morocco" checked><label>Morocco</label>
         <input type="checkbox" class="checkbox" value="strait_of_gibraltar"><label>Strait of Gibraltar</label>
