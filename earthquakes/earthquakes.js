@@ -1,11 +1,11 @@
-const viz = d3.select('#viz').node();
+const viz = d3.select('.viz').node();
 
 const width = viz.getBoundingClientRect().width * 90 / 100;
 const height = viz.getBoundingClientRect().height * 90 / 100;
 
 const svg = d3.select('svg').attr("width", width).attr("height", height);
 
-var Tooltip = d3.select("#viz")
+var Tooltip = d3.select(".viz")
     .append("div")
     .attr("class", "tooltip")
     
@@ -77,7 +77,8 @@ d3.json('https://cdn.jsdelivr.net/npm/morocco-map/data/provinces.json')
 
         // Loading earthquakes:
         d3.select("#loading_screen").text('Loading data');
-        d3.csv("https://raw.githubusercontent.com/wahnou/visualizations/master/earthquakes/IEB_export.csv")
+        // d3.csv("https://raw.githubusercontent.com/wahnou/visualizations/master/earthquakes/IEB_export.csv")
+        d3.csv("IEB_export.csv")
             .then(eartquakes => {
                 d3.select("#loading_screen").text('Data loaded');
                 max_mag = d3.max(eartquakes, d => d.Mag)
@@ -97,6 +98,7 @@ d3.json('https://cdn.jsdelivr.net/npm/morocco-map/data/provinces.json')
                     .style("fill", (d) => fill(d.Region.toLowerCase()))
                     .style("stroke", (d) => stroke(d.Region.toLowerCase()))
                     .attr("class", "earthquake")
+                    .attr("depth", (d) => d.Depth)
                     .attr("stroke-width", 1)
                     .attr("fill-opacity", (d) => 1 - (d.Depth * 1 / max_depth))
                     .attr("class", (d) => d.Region.toLowerCase().replaceAll(" ", "_"))
@@ -106,23 +108,37 @@ d3.json('https://cdn.jsdelivr.net/npm/morocco-map/data/provinces.json')
 
 
                 function update() {
+                    let sum = 0;
                     d3.selectAll(".checkbox").each(function (d) {
                         cb = d3.select(this);
                         grp = cb.property("value")
-
+                        input_min_depth = d3.select("#minDepth").property("value");
+                        input_max_depth = d3.select("#maxDepth").property("value");
+                        input_min_mag = d3.select("#minMag").property("value");
+                        input_max_mag = d3.select("#maxMag").property("value");
                         if (cb.property("checked")) {
                             svg.selectAll("[class*='" + grp + "']").transition().duration(1000).attr("r", function (d) {
-                                return d.Mag * 16 / max_mag
+                                if( 
+                                    parseInt(d.Depth) >= parseInt(input_min_depth) &&
+                                    parseInt(d.Depth) <= parseInt(input_max_depth) &&
+                                    parseInt(d.Mag) >= parseInt(input_min_mag) &&
+                                    parseInt(d.Mag) <= parseInt(input_max_mag)
+                                ) {
+                                    sum+=1;
+                                    return d.Mag * 16 / max_mag
+                                }
+                                return 0
                             })
 
                         } else {
                             svg.selectAll("[class*='" + grp + "']").transition().duration(1000).attr("r", 0)
                         }
                     })
+                    d3.select("#sum").text(sum)
                 }
 
-                d3.selectAll(".checkbox").on("change", update);
-
+                d3.selectAll(".filterInput").on("change", update);
+                
                 update()
                 d3.select("#loading_screen").style('display', 'none');
 

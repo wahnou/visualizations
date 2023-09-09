@@ -1,0 +1,140 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: #eee;
+}
+
+.region,
+.province {
+    fill: #999;
+    stroke: #222;
+    opacity: 0.88;
+    opacity: 1;
+}
+
+.region:hover {
+    opacity: 1;
+}
+
+.earthquake:hover {
+    stroke: black;
+    fill: red;
+    stroke-width: 2px;
+}
+
+#loading_screen {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: block;
+    margin: auto;
+    /*background-color: rgba(52, 152, 219, .3);*/
+    background-color: #222;
+    text-align: center;
+}
+
+.tooltip {
+    display: block;
+    width: fit-content;
+    text-align: left;
+    background-color: white;
+    border: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    opacity: 0;
+    color: #222;
+}
+
+
+#loading_screen {
+    z-index: 3;
+    background-color: rgba(0, 0, 0, .9);
+    padding-top: 40%;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+}
+
+
+#viz {
+    display: flex;
+    background-color: green;
+    flex-direction: row-reverse;
+}
+
+.viz,
+.filter {
+    flex: 1;
+    display: block;
+}
+
+.viz {
+    background-color: #222;
+    text-align: center;
+}
+
+
+.filter {
+    background-color: white;
+    color: #222;
+}
+
+#form {
+    width: 80%;
+    margin: auto;
+    overflow: auto;
+}
+
+#form input {
+    font-size: 30px;
+}
+
+.source {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.source a {
+    color: #2980B9;
+    text-decoration: none;
+}
+
+.form-group {
+    display: flex;
+    margin: 10px auto;
+}
+.form-group:first-of-type {
+    flex-wrap: wrap;
+}
+.form-group:first-of-type .input-form label{
+    font-size: 20px;
+}
+.form-group:first-of-type .input-form {
+    /* background-color: blue; */
+    flex: auto;
+}
+.form-group .input-form {
+    flex: 1;
+    margin: 0 10px;
+    display: flex;
+    font-size: 30px;
+}
+
+
+.input-form label,
+.input-form input {
+    flex: 1;
+    vertical-align: middle;
+}
+
+.input-form input {
+    padding: 4px 6px;
+    border: 1px solid #222;
+    border-radius: 8px;
+}

@@ -9,80 +9,64 @@
     <script src="https://unpkg.com/d3@5.6.0/dist/d3.min.js"></script>
     <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
 
-    <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        .region {
-            fill: #7F8C8D;
-            opacity: 0.88;
-        }
-        .region:hover {
-            opacity: 1;
-        }
-        .earthquake:hover{
-            stroke: black;
-            fill: red;
-            stroke-width: 2px;
-        }
-        #loading_screen,
-        #viz {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            display: block;
-            margin: auto;
-            background-color: rgba(52, 152, 219, .3);
-            text-align: center;
-        }
-        .tooltip {
-            display: block;
-            width: fit-content;
-            text-align: left;
-            background-color: white;
-            border: solid;
-            border-width: 2px;
-            border-radius: 5px;
-            padding: 5px;
-            position: absolute;
-            opacity: 0;
-        }
-        .filter {
-            position: absolute;
-            z-index: 2;
-        }
-        #loading_screen {
-            z-index: 3;
-            background-color: rgba(0,0,0,.9);
-            padding-top: 40%;
-            font-weight: bold;
-            font-size: 30px;
-            color: white;
-        }
-    </style>
+    <title>History of earthquakes in Morocco</title>
 
-    <title>Moroccan regions map example</title>
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="./style.css">
+
 </head>
 
 <body>
     <div id="loading_screen">Earthquakes...</div>
-    <div class="filter">
-        <input type="checkbox" class="checkbox" value="morocco" checked><label>Morocco</label>
-        <input type="checkbox" class="checkbox" value="strait_of_gibraltar"><label>Strait of Gibraltar</label>
-        <input type="checkbox" class="checkbox" value="spain"><label>Spain</label>
-        <input type="checkbox" class="checkbox" value="unk"><label>Unkown</label>
-        <input type="checkbox" class="checkbox" value="portugal"><label>Portugal</label>
-        <input type="checkbox" class="checkbox" value="algeria"><label>Algeria</label>
-        <input type="checkbox" class="checkbox" value="mauritania"><label>Mauritania</label>
-    </div>
     <div id="viz">
-        <svg></svg>
+        <div class="filter">
+            <h1>History of earthquakes in Morocco</h1>
+            <div id="form">
+                <div class="form-group">
+                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="morocco" checked><label>🇲🇦 Morocco</label></div>
+                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="spain"><label>Spain</label></div>
+                    <!-- <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="unk"><label>Unkown</label></div> -->
+                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="portugal"><label>Portugal</label></div>
+                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="algeria"><label>Algeria</label></div>
+                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="mauritania"><label>Mauritania</label></div>
+                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="strait_of_gibraltar"><label>Strait of Gibraltar</label></div>
+                </div>
+                <div class="form-group">
+                    <div class="input-form">
+                        <label>Min depth</label>
+                        <input class="filterInput" id="minDepth" type="number" value="0" placeholder="Depth min" min="0" max="145">
+                    </div>
+                    <div class="input-form">
+                        <label>Max depth</label>
+                        <input class="filterInput" id="maxDepth" type="number" value="145" placeholder="Depth max" min="0" max="145">
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="input-form">
+                        <label>Min Magnitude</label>
+                        <input class="filterInput" type="number" id="minMag" value="1" placeholder="Magnitude min" min="1" max="7">
+                    </div>
+                    <div class="input-form">
+                        <label>Max Magnitude</label>
+                        <input class="filterInput" type="number" id="maxMag" value="7" placeholder="Magnitude max" min="1" max="7">
+                    </div>
+                </div>
+            </div>
+            <div style="font-weight: bold">
+                <span class="source">Source: <a href="https://ds.iris.edu/ieb/index.html?format=text&nodata=404&starttime=1970-01-01&endtime=2025-01-01&orderby=time-desc&src=usgs&limit=25000&maxlat=35.996&minlat=20.838&maxlon=-0.582&minlon=-17.875&sbl=1&zm=6&mt=ter" target="_blank">EarthScope</a></span>
+            </div>
+        </div>
+        <div class="viz">
+            <p>
+                Total: 
+                <span id="sum">0</span>
+            </p>
+            <svg></svg>
+        </div>
     </div>
     <script src="./earthquakes.js"></script>
+    <!-- <script src="../script.js"></script> -->
 </body>
 
 </html>
