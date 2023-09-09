@@ -77,8 +77,8 @@ d3.json('https://cdn.jsdelivr.net/npm/morocco-map/data/provinces.json')
 
         // Loading earthquakes:
         d3.select("#loading_screen").text('Loading data');
-        // d3.csv("https://raw.githubusercontent.com/wahnou/visualizations/master/earthquakes/IEB_export.csv")
-        d3.csv("IEB_export.csv")
+        d3.csv("https://raw.githubusercontent.com/wahnou/visualizations/master/earthquakes/IEB_export.csv")
+        // d3.csv("IEB_export.csv")
             .then(eartquakes => {
                 d3.select("#loading_screen").text('Data loaded');
                 max_mag = d3.max(eartquakes, d => d.Mag)
