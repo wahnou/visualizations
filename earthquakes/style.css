@@ -151,11 +151,7 @@ body {
     
     #form {
         width: 95%;
-        height: 40vh;
-        display: flex;
-        flex-direction: column;
         margin: auto;
-        overflow: auto;
     }
     .form-group {
         width: 100%;
@@ -165,7 +161,14 @@ body {
     }    
     .form-group .input-form {
         flex-direction: column;
-        font-size: 25px;
+        font-size: 20px;
+    }
+    .form input {
+        font-size: 20px;
+    }
+
+    h1 {
+        padding: 4px 0;
     }
     
 }
