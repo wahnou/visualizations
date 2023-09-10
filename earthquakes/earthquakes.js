@@ -21,6 +21,8 @@ var mousemove = function (d) {
         .transition()
         .delay(2500)
         .style("opacity", 0)
+        .style("left", (0) + "px")
+        .style("top", (0) + "px")
 }
 var mouseleave = function (d) {
     Tooltip.style("opacity", 0)
@@ -119,10 +121,10 @@ d3.json('https://cdn.jsdelivr.net/npm/morocco-map/data/provinces.json')
                         if (cb.property("checked")) {
                             svg.selectAll("[class*='" + grp + "']").transition().duration(1000).attr("r", function (d) {
                                 if( 
-                                    parseInt(d.Depth) >= parseInt(input_min_depth) &&
-                                    parseInt(d.Depth) <= parseInt(input_max_depth) &&
-                                    parseInt(d.Mag) >= parseInt(input_min_mag) &&
-                                    parseInt(d.Mag) <= parseInt(input_max_mag)
+                                    parseFloat(d.Depth) >= parseFloat(input_min_depth) &&
+                                    parseFloat(d.Depth) <= parseFloat(input_max_depth) &&
+                                    parseFloat(d.Mag) >= parseFloat(input_min_mag) &&
+                                    parseFloat(d.Mag) <= parseFloat(input_max_mag)
                                 ) {
                                     sum+=1;
                                     return d.Mag * 16 / max_mag
