@@ -83,6 +83,7 @@ body {
 .filter {
     background-color: white;
     color: #222;
+    overflow: hidden;
 }
 
 #form {
