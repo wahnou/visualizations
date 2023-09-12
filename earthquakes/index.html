@@ -2,47 +2,198 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="https://unpkg.com/d3@5.6.0/dist/d3.min.js"></script>
-    <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
+  <script src="https://unpkg.com/d3@5.6.0/dist/d3.min.js"></script>
+  <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
 
-    <title>History of earthquakes in Morocco</title>
+  <title>History of earthquakes in Morocco</title>
 
-    <link rel="stylesheet" href="../global.css">
-    <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="../global.css">
+  <link rel="stylesheet" href="./style.css">
 
 </head>
 
 <body>
-    <div id="loading_screen">Earthquakes...</div>
-    <div id="viz">
-        <div class="filter">
-            <h1>History of earthquakes in Morocco</h1>
-            <div id="form">
-                <div class="form-group">
-                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="morocco" checked><label>🇲🇦</label></div>
-                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="spain"><label>🇪🇸</label></div>
-                    <!-- <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="unk"><label>Unkown</label></div> -->
-                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="portugal"><label>🇵🇹</label></div>
-                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="algeria"><label>🇩🇿</label></div>
-                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="mauritania"><label>🇲🇷</label></div>
-                    <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="strait_of_gibraltar"><label>Strait of 🇬🇮</label></div>
-                </div>
-                <div class="form-group">
-                    <div class="input-form">
-                        <label>Min depth</label>
-                        <input class="filterInput" id="minDepth" type="number" value="0" placeholder="Depth min" min="0" max="145">
-                    </div>
-                    <div class="input-form">
-                        <label>Max depth</label>
-                        <input class="filterInput" id="maxDepth" type="number" value="145" placeholder="Depth max" min="0" max="145">
-                    </div>
+  <div id="loading_screen">Earthquakes...</div>
+  <div id="viz">
+    <div class="filter">
+      <h1>History of earthquakes in Morocco</h1>
+      <div id="form">
+        <div class="form-group">
+          <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="morocco"
+              checked><label>🇲🇦</label></div>
+          <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="spain"><label>🇪🇸</label>
+          </div>
+          <!-- <div class="input-form"><input type="checkbox" class="checkbox filterInput" value="unk"><label>Unkown</label></div> -->
+          <div class="input-form"><input type="checkbox" class="checkbox filterInput"
+              value="portugal"><label>🇵🇹</label></div>
+          <div class="input-form"><input type="checkbox" class="checkbox filterInput"
+              value="algeria"><label>🇩🇿</label></div>
+          <div class="input-form"><input type="checkbox" class="checkbox filterInput"
+              value="mauritania"><label>🇲🇷</label></div>
+          <div class="input-form"><input type="checkbox" class="checkbox filterInput"
+              value="strait_of_gibraltar"><label>Strait of 🇬🇮</label></div>
+        </div>
 
-                </div>
-                <div class="form-group">
+
+        <style>
+          .range {
+            margin-top: 20px;
+          }
+          .range-slider {
+            height: 5px;
+            position: relative;
+            background-color: #e1e9f6;
+            border-radius: 2px;
+          }
+
+          .range-selected {
+            height: 100%;
+            left: 0;
+            right: 0;
+            position: absolute;
+            border-radius: 5px;
+            background-color: #1b53c0;
+          }
+
+          .range-input {
+            position: relative;
+          }
+
+          .range-input input {
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            top: -7px;
+            background: none;
+            pointer-events: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            left: 0;
+          }
+
+          .range-input input::-webkit-slider-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            border: 6px solid #1b53c0;
+            background-color: #fff;
+            pointer-events: auto;
+            -webkit-appearance: none;
+          }
+
+          .range-input input::-moz-range-thumb {
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            border: 3px solid #1b53c0;
+            background-color: #fff;
+            pointer-events: auto;
+            -moz-appearance: none;
+          }
+
+          .range-price {
+            margin: 30px 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .range-price label {
+            margin-right: 5px;
+          }
+
+          .range-price input {
+            width: 40px;
+            padding: 5px;
+          }
+
+          .range-price input:first-of-type {
+            margin-right: 15px;
+          }
+        </style>
+
+
+
+        <div class="form-group">
+          <div class="input-form">
+            <label>Magnitude</label>
+            <div class="range">
+              <div class="range-slider">
+                <span class="range-selected"></span>
+              </div>
+              <div class="range-input">
+                <input type="range" id="minMag" class="min filterInput" min="0" max="7" value="0" step="1">
+                <input type="range" id="maxMag" class="max filterInput" min="0" max="7" value="7" step="1">
+              </div>
+              <div class="range-price">
+                <input type="number" name="min" value="0">
+                <input type="number" name="max" value="7">
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <script>
+          let rangeMin = 0;
+          const range = document.querySelector(".range-selected");
+          const rangeInput = document.querySelectorAll(".range-input input");
+          const rangePrice = document.querySelectorAll(".range-price input");
+
+          rangeInput.forEach((input) => {
+            input.addEventListener("input", (e) => {
+              let minRange = parseInt(rangeInput[0].value);
+              let maxRange = parseInt(rangeInput[1].value);
+              if (maxRange - minRange < rangeMin) {
+                if (e.target.className === "min") {
+                  rangeInput[0].value = maxRange - rangeMin;
+                } else {
+                  rangeInput[1].value = minRange + rangeMin;
+                }
+              } else {
+                rangePrice[0].value = minRange;
+                rangePrice[1].value = maxRange;
+                range.style.left = (minRange / rangeInput[0].max) * 100 + "%";
+                range.style.right = 100 - (maxRange / rangeInput[1].max) * 100 + "%";
+              }
+            });
+          });
+
+          rangePrice.forEach((input) => {
+            input.addEventListener("input", (e) => {
+              let minPrice = rangePrice[0].value;
+              let maxPrice = rangePrice[1].value;
+              if (maxPrice - minPrice >= rangeMin && maxPrice <= rangeInput[1].max) {
+                if (e.target.className === "min") {
+                  rangeInput[0].value = minPrice;
+                  range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
+                } else {
+                  rangeInput[1].value = maxPrice;
+                  range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+                }
+              }
+            });
+          });
+        </script>
+
+        <div class="form-group">
+          <div class="input-form">
+            <label>Min depth</label>
+            <input class="filterInput" id="minDepth" type="number" value="0" placeholder="Depth min" min="0" max="145">
+          </div>
+          <div class="input-form">
+            <label>Max depth</label>
+            <input class="filterInput" id="maxDepth" type="number" value="145" placeholder="Depth max" min="0"
+              max="145">
+          </div>
+
+        </div>
+        <!-- <div class="form-group">
                     <div class="input-form">
                         <label>Min Magnitude</label>
                         <input class="filterInput" type="number" id="minMag" value="1" placeholder="Magnitude min" min="1" max="7">
@@ -51,22 +202,24 @@
                         <label>Max Magnitude</label>
                         <input class="filterInput" type="number" id="maxMag" value="7" placeholder="Magnitude max" min="1" max="7">
                     </div>
-                </div>
-            </div>
-            <div style="font-weight: bold">
-                <span class="source">Source: <a href="https://ds.iris.edu/ieb/index.html?format=text&nodata=404&starttime=1970-01-01&endtime=2025-01-01&orderby=time-desc&src=usgs&limit=25000&maxlat=35.996&minlat=20.838&maxlon=-0.582&minlon=-17.875&sbl=1&zm=6&mt=ter" target="_blank">EarthScope</a></span>
-            </div>
-        </div>
-        <div class="viz">
-            <p>
-                Total: 
-                <span id="sum">0</span>
-            </p>
-            <svg></svg>
-        </div>
+                </div> -->
+      </div>
+      <div style="font-weight: bold">
+        <span class="source">Source: <a
+            href="https://ds.iris.edu/ieb/index.html?format=text&nodata=404&starttime=1970-01-01&endtime=2025-01-01&orderby=time-desc&src=usgs&limit=25000&maxlat=35.996&minlat=20.838&maxlon=-0.582&minlon=-17.875&sbl=1&zm=6&mt=ter"
+            target="_blank">EarthScope</a></span>
+      </div>
     </div>
-    <script src="./earthquakes.js"></script>
-    <!-- <script src="../script.js"></script> -->
+    <div class="viz">
+      <p>
+        Total:
+        <span id="sum">0</span>
+      </p>
+      <svg></svg>
+    </div>
+  </div>
+  <script src="./earthquakes.js"></script>
+  <!-- <script src="../script.js"></script> -->
 </body>
 
 </html>
