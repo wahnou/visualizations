@@ -293,7 +293,16 @@ d3.json("data.json").then(
                 return d.data.name
             })
             .attr("font-size", "14px")
+            .attr("font-size", function (d) {
+                // Adjust the font size based on the width of the rect
+                const width = d.x1 - d.x0;
+                const height = d.y1 - d.y0;
+
+                const fontSize = Math.max(0, Math.min(width, height) / 15); // Min font size of 12px
+                return (fontSize > 8 ? 15 : 0) + "px";
+            })
             .attr("font-weight", "bold")
+            .attr("font-style", "italic")
             .attr("fill", "white")
 
         // Add title for the 3 groups
