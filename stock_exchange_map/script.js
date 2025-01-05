@@ -112,8 +112,25 @@ d3.json("data.json").then(
                     .html(tooltipContent);
             })
             .on("mousemove", function (event) {
-                tooltip.style("top", (event.pageY + 10) + "px") // Position tooltip
-                    .style("left", (event.pageX + 10) + "px");
+                const tooltipWidth = tooltip.node().offsetWidth;
+                const tooltipHeight = tooltip.node().offsetHeight;
+
+                // Calculate the position of the tooltip
+                let left = event.pageX + 10;
+                let top = event.pageY + 10;
+
+                // Ensure the tooltip doesn't go out of the right edge
+                if (left + tooltipWidth > window.innerWidth) {
+                    left = event.pageX - tooltipWidth - 10;
+                }
+
+                // Ensure the tooltip doesn't go out of the bottom edge
+                if (top + tooltipHeight > window.innerHeight) {
+                    top = event.pageY - tooltipHeight - 10;
+                }
+
+                tooltip.style("top", `${top}px`)
+                    .style("left", `${left}px`);
             })
             .on("mouseout", function () {
                 tooltip.style("visibility", "hidden"); // Hide tooltip
@@ -139,7 +156,7 @@ d3.json("data.json").then(
                 const height = d.y1 - d.y0;
 
                 const fontSize = Math.max(0, Math.min(width, height) / 5); // Min font size of 12px
-                return (fontSize > 10 ? fontSize : 0)  + "px";
+                return (fontSize > 10 ? fontSize : 0) + "px";
             })
             .attr("font-weight", "bold")
             .attr("fill", "white")
@@ -160,8 +177,25 @@ d3.json("data.json").then(
                     .html(tooltipContent);
             })
             .on("mousemove", function (event) {
-                tooltip.style("top", (event.pageY + 10) + "px") // Position tooltip
-                    .style("left", (event.pageX + 10) + "px");
+                const tooltipWidth = tooltip.node().offsetWidth;
+                const tooltipHeight = tooltip.node().offsetHeight;
+
+                // Calculate the position of the tooltip
+                let left = event.pageX + 10;
+                let top = event.pageY + 10;
+
+                // Ensure the tooltip doesn't go out of the right edge
+                if (left + tooltipWidth > window.innerWidth) {
+                    left = event.pageX - tooltipWidth - 10;
+                }
+
+                // Ensure the tooltip doesn't go out of the bottom edge
+                if (top + tooltipHeight > window.innerHeight) {
+                    top = event.pageY - tooltipHeight - 10;
+                }
+
+                tooltip.style("top", `${top}px`)
+                    .style("left", `${left}px`);
             })
             .on("mouseout", function () {
                 tooltip.style("visibility", "hidden"); // Hide tooltip
@@ -183,7 +217,7 @@ d3.json("data.json").then(
                 const height = d.y1 - d.y0;
 
                 const fontSize = Math.max(0, Math.min(width, height) / 8);
-                
+
                 return ((d.y0 + d.y1) / 2) + fontSize; // Center vertically
             }) // +20 to adjust position (lower)
             .text(function (d) {
@@ -195,14 +229,14 @@ d3.json("data.json").then(
                 const height = d.y1 - d.y0;
 
                 const fontSize = Math.max(0, Math.min(width, height) / 15); // Min font size of 12px
-                return (fontSize > 10 ? fontSize : 0)  + "px";
+                return (fontSize > 10 ? fontSize : 0) + "px";
             })
             .attr("font-weight", "bold")
             .style('filter', 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4))')
             .attr("fill", "white")
             .attr("text-anchor", "middle") // Center text horizontally
             .attr("dominant-baseline", "middle") // Center text vertically
-            
+
             .on("mouseover", function (event, d) {
                 const tooltipContent = `
                     <table>
@@ -217,8 +251,25 @@ d3.json("data.json").then(
                     .html(tooltipContent);
             })
             .on("mousemove", function (event) {
-                tooltip.style("top", (event.pageY + 10) + "px") // Position tooltip
-                    .style("left", (event.pageX + 10) + "px");
+                const tooltipWidth = tooltip.node().offsetWidth;
+                const tooltipHeight = tooltip.node().offsetHeight;
+
+                // Calculate the position of the tooltip
+                let left = event.pageX + 10;
+                let top = event.pageY + 10;
+
+                // Ensure the tooltip doesn't go out of the right edge
+                if (left + tooltipWidth > window.innerWidth) {
+                    left = event.pageX - tooltipWidth - 10;
+                }
+
+                // Ensure the tooltip doesn't go out of the bottom edge
+                if (top + tooltipHeight > window.innerHeight) {
+                    top = event.pageY - tooltipHeight - 10;
+                }
+
+                tooltip.style("top", `${top}px`)
+                    .style("left", `${left}px`);
             })
             .on("mouseout", function () {
                 tooltip.style("visibility", "hidden"); // Hide tooltip
